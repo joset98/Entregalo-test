@@ -17,7 +17,7 @@ class CreateDeliveryRequestsTable extends Migration
             $table->id();
             $table->longText('description');
             $table->dateTime('delivery_time', 0);
-            $table->foreignId('user_id')->constrained('purchase_orders');
+            $table->foreignId('user_id')->constrained('users');
             $table->enum('status',['ACTIVO', 'PROCESADO', 'CANCELADO',])->default('ACTIVO');
             $table->timestamps();
         });

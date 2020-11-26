@@ -9,6 +9,8 @@ interface BaseRepositoryInterface
 
    public function all();
 
+   public function insert( $array );
+
    public function create(array  $data);
 
    public function update(array $data, $id);

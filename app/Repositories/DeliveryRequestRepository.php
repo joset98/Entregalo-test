@@ -28,10 +28,15 @@ class DeliveryRequestRepository extends BaseRepository
                     'supply_delivery_requests.quantity' );
     }
 
-    public function getDeliveryRequest()
+    public function getDeliveryRequest( $date )
     {
-        return $this->getSelectDeliveryRequest()
-                    ->addSelect( 'users.name', 'users.last_name' );
+        $query = $date ? $this->getSelectDeliveryRequest()
+                    ->addSelect( 'users.name', 'users.last_name' )
+                    ->whereDate('updated_at', $date ):
+                    $this->getSelectDeliveryRequest()
+                    ->addSelect( 'users.name', 'users.last_name' )
+                ;
+        return $query;
     }
 
     public function getDeliveryRequestByUser( $id )
@@ -39,5 +44,10 @@ class DeliveryRequestRepository extends BaseRepository
         return $this->getSelectDeliveryRequest()
                     ->where( 'users.id' , $id);
     }
+
+    public function removeBeforeDate ($date)
+    {
+        $this->model::whereDate('created_at', '<' , $date);
+    } 
 
 } 
